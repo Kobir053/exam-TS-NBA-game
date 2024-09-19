@@ -9,7 +9,7 @@ enum Position {
 };
 
 interface Player {
-    name?: string;
+    playerName?: string;
     position: string;
     twoPercent: number;
     threePercent: number;
@@ -22,7 +22,7 @@ let playersFromAPI : Player[] = [];
 function getDetailsFromForm(form: HTMLFormElement) : Player {
     const detailsToSearch: Player = {
         position: form["position"].value,
-        twoPercent: +form["field-goals"].value,
+        twoPercent: +form["field-goal"].value,
         threePercent: +form["3-points"].value,
         points: +form["points"].value
     };
@@ -30,6 +30,7 @@ function getDetailsFromForm(form: HTMLFormElement) : Player {
 }
 
 async function searchPlayers(details: Player) : Promise<Player[]> {
+    console.log(details);
     const request = {
         method: "POST",
         headers: {"Content-Type": "application/json"},
@@ -85,7 +86,7 @@ function addRowToTable (player: Player) : HTMLTableRowElement {
     const tr = document.createElement("tr") as HTMLTableRowElement;
 
     const playerTD = document.createElement("td") as HTMLTableCellElement;
-    playerTD.textContent = player.name!;
+    playerTD.textContent = player.playerName!;
     
     const positionTD = document.createElement("td") as HTMLTableCellElement;
     positionTD.textContent = player.position;
@@ -101,7 +102,7 @@ function addRowToTable (player: Player) : HTMLTableRowElement {
 
     const actionTD = document.createElement("td") as HTMLTableCellElement;
     const button = document.createElement("button") as HTMLButtonElement;
-    button.textContent = `Add ${player.name?.substring(0, player.name.indexOf(" "))} to Current Team`;
+    button.textContent = `Add ${player.playerName?.substring(0, player.playerName.indexOf(" "))} to Current Team`;
     // event listener to button
     actionTD.appendChild(button);
 
@@ -110,4 +111,4 @@ function addRowToTable (player: Player) : HTMLTableRowElement {
 }
 
 const searchForm = document.getElementById("search-form") as HTMLFormElement;
-searchForm.addEventListener("click", listenerToForm);
+searchForm.addEventListener("submit", listenerToForm);

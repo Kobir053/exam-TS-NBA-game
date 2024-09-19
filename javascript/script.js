@@ -23,7 +23,7 @@ let playersFromAPI = [];
 function getDetailsFromForm(form) {
     const detailsToSearch = {
         position: form["position"].value,
-        twoPercent: +form["field-goals"].value,
+        twoPercent: +form["field-goal"].value,
         threePercent: +form["3-points"].value,
         points: +form["points"].value
     };
@@ -31,6 +31,7 @@ function getDetailsFromForm(form) {
 }
 function searchPlayers(details) {
     return __awaiter(this, void 0, void 0, function* () {
+        console.log(details);
         const request = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -84,7 +85,7 @@ function addRowToTable(player) {
     var _a;
     const tr = document.createElement("tr");
     const playerTD = document.createElement("td");
-    playerTD.textContent = player.name;
+    playerTD.textContent = player.playerName;
     const positionTD = document.createElement("td");
     positionTD.textContent = player.position;
     const pointsTD = document.createElement("td");
@@ -95,11 +96,11 @@ function addRowToTable(player) {
     threePointsTD.textContent = player.threePercent.toString();
     const actionTD = document.createElement("td");
     const button = document.createElement("button");
-    button.textContent = `Add ${(_a = player.name) === null || _a === void 0 ? void 0 : _a.substring(0, player.name.indexOf(" "))} to Current Team`;
+    button.textContent = `Add ${(_a = player.playerName) === null || _a === void 0 ? void 0 : _a.substring(0, player.playerName.indexOf(" "))} to Current Team`;
     // event listener to button
     actionTD.appendChild(button);
     tr.append(playerTD, positionTD, pointsTD, fgTD, threePointsTD, actionTD);
     return tr;
 }
 const searchForm = document.getElementById("search-form");
-searchForm.addEventListener("click", listenerToForm);
+searchForm.addEventListener("submit", listenerToForm);

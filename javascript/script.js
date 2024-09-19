@@ -18,7 +18,6 @@ var Position;
     Position[Position["C"] = 4] = "C";
 })(Position || (Position = {}));
 ;
-let myPlayers = [];
 let playersFromAPI = [];
 function getDetailsFromForm(form) {
     const detailsToSearch = {
@@ -79,8 +78,35 @@ function insertPlayersToTable(players) {
         tbody.appendChild(newRow);
     });
 }
-// function getPlayerDetailsFromTable (player: Player) : Player {
-// }
+function createElementsForPlayerDiv(div, player) {
+    const playerNameElement = document.createElement("h4");
+    playerNameElement.textContent = player.playerName;
+    const playerThreePercentElement = document.createElement("p");
+    playerThreePercentElement.setAttribute("class", "three-p");
+    playerThreePercentElement.textContent = `Three Precent : ${player.threePercent.toString()}%`;
+    const playerTwoPercentElement = document.createElement("p");
+    playerTwoPercentElement.setAttribute("class", "two-p");
+    playerTwoPercentElement.textContent = `Two Precent : ${player.twoPercent.toString()}%`;
+    const playerPointsElement = document.createElement("p");
+    playerPointsElement.setAttribute("class", "points");
+    playerPointsElement.textContent = "Points :" + player.points.toString();
+    div.append(playerNameElement, playerThreePercentElement, playerTwoPercentElement, playerPointsElement);
+}
+function addPlayerToMyTeam(player) {
+    const playerDiv = document.getElementById(`${player.position}`);
+    if (playerDiv.childElementCount < 2) {
+        createElementsForPlayerDiv(playerDiv, player);
+        return;
+    }
+    let playerNameElement = document.querySelector(`#${player.position} > h4`);
+    playerNameElement.textContent = player.playerName;
+    let playerThreePercentElement = document.querySelector(`#${player.position} > .three-p`);
+    playerThreePercentElement.textContent = `Three Precent : ${player.threePercent.toString()}%`;
+    let playerTwoPercentElement = document.querySelector(`#${player.position} > .two-p`);
+    playerTwoPercentElement.textContent = `Two Precent : ${player.twoPercent.toString()}%`;
+    let playerPointsElement = document.querySelector(`#${player.position} > .points`);
+    playerPointsElement.textContent = "Points :" + player.points.toString();
+}
 function addRowToTable(player) {
     var _a;
     const tr = document.createElement("tr");
@@ -97,10 +123,17 @@ function addRowToTable(player) {
     const actionTD = document.createElement("td");
     const button = document.createElement("button");
     button.textContent = `Add ${(_a = player.playerName) === null || _a === void 0 ? void 0 : _a.substring(0, player.playerName.indexOf(" "))} to Current Team`;
-    // event listener to button
+    button.addEventListener("click", () => { addPlayerToMyTeam(player); });
     actionTD.appendChild(button);
     tr.append(playerTD, positionTD, pointsTD, fgTD, threePointsTD, actionTD);
     return tr;
 }
 const searchForm = document.getElementById("search-form");
 searchForm.addEventListener("submit", listenerToForm);
+const inputs = document.getElementsByTagName("input");
+for (const element of inputs) {
+    element.addEventListener("input", () => {
+        const label = document.getElementById(`${element.getAttribute("name")}-label`);
+        label.textContent = element.value;
+    });
+}

@@ -19,38 +19,18 @@
         <section id="players-section">
             <div class="player" id="PG"> 
                 <h5>Point Guard</h5>
-                <h4>bla bla name</h4>
-                <p class="3p">Three Precents : 28</p>
-                <p class="2p">Two Precent : 56</p>
-                <p class="points">Points : 4435</p>
             </div>
             <div class="player" id="SG">
                 <h5>Shooting Guard</h5>
-                <h4>bla bla name</h4>
-                <p class="3p">Three Precents : 28</p>
-                <p class="2p">Two Precent : 56</p>
-                <p class="points">Points : 4435</p>
             </div>
             <div class="player" id="SF">
                 <h5>Small Forward</h5>
-                <h4>bla bla name</h4>
-                <p class="3p">Three Precents : 28</p>
-                <p class="2p">Two Precent : 56</p>
-                <p class="points">Points : 4435</p>
             </div>
             <div class="player" id="PF">
                 <h5>Power Forward</h5>
-                <h4>bla bla name</h4>
-                <p class="3p">Three Precents : 28</p>
-                <p class="2p">Two Precent : 56</p>
-                <p class="points">Points : 4435</p>
             </div>
             <div class="player" id="C">
                 <h5>Center</h5>
-                <h4>bla bla name</h4>
-                <p class="3p">Three Precents : 28</p>
-                <p class="2p">Two Precent : 56</p>
-                <p class="points">Points : 4435</p>
             </div>     
         </section>
     </main>
@@ -69,9 +49,19 @@
                         <option value="PF">PF</option>
                         <option value="C">C</option>
                     </select>
-                    <input type="range" name="points" max="20000" min="0" value="10000">
-                    <input type="range" name="field-goal" max="100" min="0" value="50">
-                    <input type="range" name="3-points" max="100" min="0" value="50">
+                    <div>
+                        <label for="points" id="points-label">Points</label>
+                        <input type="range" name="points" max="20000" min="0" value="10000">
+
+                    </div>
+                    <div>
+                        <label for="field-goal" id="field-goal-label">Field Goal %</label>
+                        <input type="range" name="field-goal" max="100" min="0" value="50">
+                    </div>
+                    <div>
+                        <label for="3-points" id="3-points-label">3-Point %</label>
+                        <input type="range" name="3-points" max="100" min="0" value="50">
+                    </div>
                     <button type="submit" id="search-button">Search Player</button>
                 </form>
             </div>
@@ -88,14 +78,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>blabla</td>
-                            <td>blabla</td>
-                            <td>blabla</td>
-                            <td>blabla</td>
-                            <td>blabla</td>
-                            <td><button>ADD TO TEAM</button></td>
-                        </tr>
+                        
                     </tbody>
                 </table>
             </div>

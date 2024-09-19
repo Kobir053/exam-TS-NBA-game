@@ -63,7 +63,7 @@ main > #players-section > .player *{
 
 #search-section{
     height: 55%;
-    width: 40%;
+    width: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -83,7 +83,7 @@ main > #players-section > .player *{
     width: 100%;
     background-color: rgb(243, 234, 234);
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.456);
-    padding: 20px;
+    padding: 10px;
     margin-top: 20px;
     display: flex;
     flex-direction: column;
@@ -100,8 +100,24 @@ main > #players-section > .player *{
     align-items: center;
     gap: 15px;
 }
-#search-section > section > #search-div > form > input[type=range]{
+#search-section > section > #search-div > form > div{
     width: 100%;
+    height: auto;
+    display: flex;
+}
+#search-section > section > #search-div > form > div > label{
+    background-color: rgba(0, 0, 0, 0.679);
+    border-radius: 4px;
+    color: white;
+    height: auto;
+    width: auto;
+    padding: 5px 7px;
+    margin: 0;
+    font-size: x-small;
+}
+#search-section > section > #search-div > form > div > input[type=range]{
+    width: 100%;
+    margin: 0;
 }
 #search-section > section > #search-div > form > select{
     width: 100%;
@@ -127,8 +143,8 @@ main > #players-section > .player *{
 #search-section > section > #players-from-api > table{
     height: 100%;
     width: 100%;
-    /* border: none;
-    border-collapse: collapse; */
+    border: none;
+    border-collapse: collapse;
 }
 #search-section > section > #players-from-api > table > thead{
     background-color: crimson;
@@ -137,16 +153,24 @@ main > #players-section > .player *{
 #search-section > section > #players-from-api > table > thead > tr > td{
     text-align: center;
     padding: 5px 10px;
+    border: 2px solid rgba(169, 165, 165, 0.71);
 }
 #search-section > section > #players-from-api > table > tbody > tr > td{
+    height: 70px;
     text-align: center;
-    padding: 5px 10px;
-    border: 2px solid rgb(209, 203, 203);
+    padding: 5px 5px;
+    border: 2px solid rgb(169, 165, 165);
 }
 #search-section > section > #players-from-api > table > tbody > tr > td > button{
+    height: 80%;
+    width: 90%;
     padding: 10px;
     color: white;
     background-color: rgb(6, 6, 155);
     border: none;
     border-radius: 3px;
+}
+#search-section > section > #players-from-api > table > tbody > tr > td > button:hover{
+    opacity: 0.8;
+    cursor: pointer;
 }

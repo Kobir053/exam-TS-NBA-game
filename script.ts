@@ -16,7 +16,6 @@ interface Player {
     points: number;
 }
 
-let myPlayers: Player[] = [];
 let playersFromAPI : Player[] = [];
 
 function getDetailsFromForm(form: HTMLFormElement) : Player {
@@ -78,9 +77,45 @@ function insertPlayersToTable (players: Player[]) : void {
     })
 }
 
-// function getPlayerDetailsFromTable (player: Player) : Player {
+function createElementsForPlayerDiv (div: HTMLDivElement, player: Player) : void {
+    const playerNameElement = document.createElement("h4") as HTMLElement;
+    playerNameElement.textContent = player.playerName!;
 
-// }
+    const playerThreePercentElement = document.createElement("p") as HTMLParagraphElement;
+    playerThreePercentElement.setAttribute("class", "three-p");
+    playerThreePercentElement.textContent = `Three Precent : ${player.threePercent.toString()}%`;
+
+    const playerTwoPercentElement = document.createElement("p") as HTMLParagraphElement;
+    playerTwoPercentElement.setAttribute("class", "two-p");
+    playerTwoPercentElement.textContent = `Two Precent : ${player.twoPercent.toString()}%`;
+
+    const playerPointsElement = document.createElement("p") as HTMLParagraphElement;
+    playerPointsElement.setAttribute("class", "points");
+    playerPointsElement.textContent = "Points :" + player.points.toString();
+
+    div.append(playerNameElement, playerThreePercentElement, playerTwoPercentElement, playerPointsElement);
+}
+
+function addPlayerToMyTeam (player: Player) : void {
+    const playerDiv = document.getElementById(`${player.position}`) as HTMLDivElement;
+    if(playerDiv.childElementCount < 2){
+        createElementsForPlayerDiv(playerDiv, player);
+        return;
+    }
+    
+    let playerNameElement = document.querySelector(`#${player.position} > h4`) as HTMLElement;
+    playerNameElement.textContent = player.playerName!;
+
+    let playerThreePercentElement = document.querySelector(`#${player.position} > .three-p`) as HTMLElement;
+    playerThreePercentElement.textContent = `Three Precent : ${player.threePercent.toString()}%`;
+
+    let playerTwoPercentElement = document.querySelector(`#${player.position} > .two-p`) as HTMLElement;
+    playerTwoPercentElement.textContent = `Two Precent : ${player.twoPercent.toString()}%`;
+
+    let playerPointsElement = document.querySelector(`#${player.position} > .points`) as HTMLElement;
+    playerPointsElement.textContent = "Points :" + player.points.toString();
+
+}
 
 function addRowToTable (player: Player) : HTMLTableRowElement {
     const tr = document.createElement("tr") as HTMLTableRowElement;
@@ -103,7 +138,7 @@ function addRowToTable (player: Player) : HTMLTableRowElement {
     const actionTD = document.createElement("td") as HTMLTableCellElement;
     const button = document.createElement("button") as HTMLButtonElement;
     button.textContent = `Add ${player.playerName?.substring(0, player.playerName.indexOf(" "))} to Current Team`;
-    // event listener to button
+    button.addEventListener("click", () => {addPlayerToMyTeam(player)});
     actionTD.appendChild(button);
 
     tr.append(playerTD, positionTD, pointsTD, fgTD, threePointsTD, actionTD);
@@ -112,3 +147,11 @@ function addRowToTable (player: Player) : HTMLTableRowElement {
 
 const searchForm = document.getElementById("search-form") as HTMLFormElement;
 searchForm.addEventListener("submit", listenerToForm);
+
+const inputs = document.getElementsByTagName("input") as HTMLCollectionOf<HTMLInputElement>;
+for (const element of inputs) {
+    element.addEventListener("input", () => {
+        const label = document.getElementById(`${element.getAttribute("name")}-label`) as HTMLLabelElement;
+        label.textContent = element.value;
+    })
+}

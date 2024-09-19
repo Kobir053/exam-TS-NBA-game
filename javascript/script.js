@@ -9,16 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 const BASE_URL = "https://nbaserver-q21u.onrender.com/api/filter";
-var Position;
-(function (Position) {
-    Position[Position["PG"] = 0] = "PG";
-    Position[Position["SG"] = 1] = "SG";
-    Position[Position["SF"] = 2] = "SF";
-    Position[Position["PF"] = 3] = "PF";
-    Position[Position["C"] = 4] = "C";
-})(Position || (Position = {}));
-;
 let playersFromAPI = [];
+// gets a form element and return the details inside the form - after submitting the form of course..
 function getDetailsFromForm(form) {
     const detailsToSearch = {
         position: form["position"].value,
@@ -28,6 +20,7 @@ function getDetailsFromForm(form) {
     };
     return detailsToSearch;
 }
+// method for get the players from the API (by POST method) 
 function searchPlayers(details) {
     return __awaiter(this, void 0, void 0, function* () {
         console.log(details);
@@ -52,6 +45,7 @@ function searchPlayers(details) {
         }
     });
 }
+// the event listener of the form by submitting, try to get the players and if there is a result, it calls the function to enter them into the table
 function listenerToForm(e) {
     return __awaiter(this, void 0, void 0, function* () {
         e.preventDefault();
@@ -70,6 +64,7 @@ function listenerToForm(e) {
         }
     });
 }
+// delete the tbody children and iterate through the player list, for each player calls a method to make a row for him and to append it into tbody
 function insertPlayersToTable(players) {
     const tbody = document.querySelector("tbody");
     tbody.innerHTML = "";
@@ -78,6 +73,7 @@ function insertPlayersToTable(players) {
         tbody.appendChild(newRow);
     });
 }
+// method that creates the element for showing the player details in the team div, it called where is the first appearance of those elements in that div..
 function createElementsForPlayerDiv(div, player) {
     const playerNameElement = document.createElement("h4");
     playerNameElement.textContent = player.playerName;
@@ -92,6 +88,7 @@ function createElementsForPlayerDiv(div, player) {
     playerPointsElement.textContent = "Points :" + player.points.toString();
     div.append(playerNameElement, playerThreePercentElement, playerTwoPercentElement, playerPointsElement);
 }
+// checks if the div already have a player inside, if it does it changes the details, if it doesn't it calls the method above..
 function addPlayerToMyTeam(player) {
     const playerDiv = document.getElementById(`${player.position}`);
     if (playerDiv.childElementCount < 2) {
@@ -107,6 +104,7 @@ function addPlayerToMyTeam(player) {
     let playerPointsElement = document.querySelector(`#${player.position} > .points`);
     playerPointsElement.textContent = "Points :" + player.points.toString();
 }
+// make the table row for the player with his details and set button for the player so it will be possible to add the player to the team
 function addRowToTable(player) {
     var _a;
     const tr = document.createElement("tr");
@@ -120,16 +118,17 @@ function addRowToTable(player) {
     fgTD.textContent = player.twoPercent.toString();
     const threePointsTD = document.createElement("td");
     threePointsTD.textContent = player.threePercent.toString();
-    const actionTD = document.createElement("td");
     const button = document.createElement("button");
     button.textContent = `Add ${(_a = player.playerName) === null || _a === void 0 ? void 0 : _a.substring(0, player.playerName.indexOf(" "))} to Current Team`;
     button.addEventListener("click", () => { addPlayerToMyTeam(player); });
+    const actionTD = document.createElement("td");
     actionTD.appendChild(button);
     tr.append(playerTD, positionTD, pointsTD, fgTD, threePointsTD, actionTD);
     return tr;
 }
 const searchForm = document.getElementById("search-form");
 searchForm.addEventListener("submit", listenerToForm);
+// get HTMLCollection of the range inputs and iterate through them to add event listener so their label could change its value after changing the value
 const inputs = document.getElementsByTagName("input");
 for (const element of inputs) {
     element.addEventListener("input", () => {
